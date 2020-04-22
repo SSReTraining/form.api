@@ -29,6 +29,7 @@ public class FormFields {
     @JoinColumn(name = "forms_id")
     private Forms formEntity;
 
+
     @ManyToOne
     @JoinColumn(name = "field_id")
     private Fields fieldsEntity;
