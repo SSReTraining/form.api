@@ -19,10 +19,10 @@ public class FormFields {
     @Column(name = "id")
     private Long id;
 
-    @Column (name = "question" )
+    @Column(name = "question")
     private String question;
 
-    @Column (name = "position" )
+    @Column(name = "position")
     private int position;
 
     @ManyToOne
@@ -32,9 +32,6 @@ public class FormFields {
     @ManyToOne
     @JoinColumn(name = "field_id")
     private Fields fieldsEntity;
-
-
-
 
 
 }
