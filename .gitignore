@@ -52,3 +52,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Properties ###
+*.properties
+pom.xml
