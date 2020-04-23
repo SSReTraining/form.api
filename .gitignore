@@ -53,5 +53,8 @@ build/
 ### VS Code ###
 .vscode/
 
-### DS_Store ###
+### Properties ###
+*.properties
+pom.xml
 .DS_Store
+

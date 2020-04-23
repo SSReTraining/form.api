@@ -26,6 +26,9 @@ public class SharedFields {
     @JoinColumn(name = "user_id")
     private Users users;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Users owner;
 
 
 }
