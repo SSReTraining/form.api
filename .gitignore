@@ -56,3 +56,5 @@ build/
 ### Properties ###
 *.properties
 pom.xml
+.DS_Store
+
