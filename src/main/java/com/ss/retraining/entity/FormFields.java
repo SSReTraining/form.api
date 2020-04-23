@@ -33,5 +33,4 @@ public class FormFields {
     @JoinColumn(name = "field_id")
     private Fields fieldsEntity;
 
-
 }
