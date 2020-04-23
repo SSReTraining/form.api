@@ -31,7 +31,7 @@ public class Fields {
     @Column(name = "created")
     private Timestamp created;
 
-    @OneToMany(mappedBy = "formEntity")
+    @OneToMany(mappedBy = "fieldsEntity")
     private List<FormFields> formFields;
 
     @OneToMany(mappedBy = "fields")
@@ -40,7 +40,7 @@ public class Fields {
     @OneToMany(mappedBy = "fieldsEntity")
     private List<SharedFields> sharedFields;
 
-    @OneToMany(mappedBy = "field_id")
+    @OneToMany(mappedBy = "fields")
     private List<SettingsAutocomplete> settingsAutocomplete;
 
     @ManyToMany
@@ -50,7 +50,7 @@ public class Fields {
     private List<Fields> fields;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "owner_id")
     private Users owners;
 }
 

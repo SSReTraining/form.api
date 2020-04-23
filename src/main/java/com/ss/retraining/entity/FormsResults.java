@@ -20,11 +20,10 @@ public class FormsResults {
     @Column(name="id")
     private long id;
 
-    @Column (name="user_id")
-    private long user_id;
+
 
     @Column (name="token_id")
-    private long token_id;
+    private long tokenId;
 
     @Column (name="answers")
     private String answers;
@@ -33,6 +32,6 @@ public class FormsResults {
     private Timestamp created;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private Users owners;
 }

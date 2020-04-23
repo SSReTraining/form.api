@@ -16,11 +16,9 @@ public class SettingsAutocomplete {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "field_id")
-    private Long field_id;
 
     @Column(name = "data_url")
-    private String data_url;
+    private String dataUrl;
 
     @Column(name = "sheet")
     private String sheet;

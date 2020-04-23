@@ -56,7 +56,7 @@ public class Forms {
     @JoinColumn(name="owner_id")
     private Users user;
 
-    @OneToMany(mappedBy="forms", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy="formEntity", cascade = CascadeType.REMOVE)
     private List<FormFields> formFields;
 
 }

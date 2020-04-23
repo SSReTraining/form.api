@@ -28,7 +28,7 @@ public class SharedFields {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    private Users owner;
+    private Users owners;
 
 
 }
