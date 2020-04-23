@@ -20,17 +20,20 @@ public class Users {
     private String password;
     private String email;
 
-    @OneToMany(mappedBy = "owner_id")
+    @OneToMany(mappedBy = "owners")
     private List<SharedFields> shareFieldListOwners;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "users")
     private List<SharedFields> shareFieldListUsers;
 
-    @OneToMany(mappedBy = "owner_id")
+    @OneToMany(mappedBy = "user")
     private List<Forms> forms;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany(mappedBy = "owners")
     private List<FormsResults> formsResults;
+
+    @OneToMany(mappedBy = "owners")
+    private List<Fields> fields;
 
     private boolean isActive;
 
