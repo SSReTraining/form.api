@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by annakitchak on 22.04.20.
@@ -53,7 +54,7 @@ public class Forms {
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name="owner_id")
-    private User user;
+    private Users user;
 
     @OneToMany(mappedBy="forms", cascade = CascadeType.REMOVE)
     private List<FormFields> formFields;
