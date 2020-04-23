@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,10 +21,10 @@ public class Users {
     private String email;
 
     @OneToMany(mappedBy = "owner_id")
-    private List<SharedFields> shareFieldList;
+    private List<SharedFields> shareFieldListOwners;
 
     @OneToMany(mappedBy = "user_id")
-    private List<SharedFields> shareFieldList;
+    private List<SharedFields> shareFieldListUsers;
 
     @OneToMany(mappedBy = "owner_id")
     private List<Forms> forms;

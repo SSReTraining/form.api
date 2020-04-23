@@ -31,8 +31,8 @@ public class SettingsAutocomplete {
     @Column(name = "to_user")
     private String to;
 
-//    @ManyToOne
-//    @JoinColumn(name = "field_id")
-//    private Fields fields;
+    @ManyToOne
+    @JoinColumn(name = "field_id")
+    private Fields fields;
 
 }

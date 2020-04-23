@@ -25,9 +25,9 @@ public class Range {
     @Column(name="max")
     private int max;
 
-//    @ManyToMany(cascade = CascadeType.DETACH)
-//    @JoinTable(name = "field_range",
-//            joinColumns = @JoinColumn(name = "field_id"),
-//            inverseJoinColumns = @JoinColumn(name = "id"))
-//    private List<Range> range;
+    @ManyToMany(cascade = CascadeType.DETACH)
+    @JoinTable(name = "field_range",
+            joinColumns = @JoinColumn(name = "field_id"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
+    private List<Range> range;
 }
