@@ -31,7 +31,9 @@ public class FieldsServiceImpl implements FieldsService {
     @Override
     public List<FieldsDTO> getAllFields() {
         List<Fields> fields = fieldsRepository.findAll();
-        return fields.stream().map(this::convertToDto).collect(Collectors.toList());
+        return fields.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -31,7 +31,9 @@ public class ChoiceOptionsImpl implements ChoiceOptionsService {
     @Override
     public List<ChoiceOptionsDTO> getAllChoiceOptions() {
         List<ChoiceOptions> choiceOptions = choiceOptionsRepository.findAll();
-        return choiceOptions.stream().map(this::convertToDto).collect(Collectors.toList());
+        return choiceOptions.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
