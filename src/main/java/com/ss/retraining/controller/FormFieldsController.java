@@ -13,7 +13,7 @@ public class FormFieldsController {
     @Autowired
     private FormFieldsService formFieldsService;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<FormFieldsDTO> getAllFormFields() {
         return formFieldsService.getAllFormFields();
 
