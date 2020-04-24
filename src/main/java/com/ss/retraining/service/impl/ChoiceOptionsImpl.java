@@ -1,33 +1,47 @@
 package com.ss.retraining.service.impl;
 
+import com.ss.retraining.dto.ChoiceOptionsDTO;
 import com.ss.retraining.entity.ChoiceOptions;
 import com.ss.retraining.repository.ChoiceOptionsRepository;
 import com.ss.retraining.service.ChoiceOptionsService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class ChoiceOptionsImpl implements ChoiceOptionsService {
     @Autowired
     ChoiceOptionsRepository choiceOptionsRepository;
+    @Autowired
+    ModelMapper modelMapper;
 
+    private ChoiceOptionsDTO convertToDto(ChoiceOptions choiceOptions) {
+        ChoiceOptionsDTO choiceOptionsDTO = modelMapper.map(choiceOptions, ChoiceOptionsDTO.class);
+        return  choiceOptionsDTO;
+    }
+    private ChoiceOptions convertToEntity(ChoiceOptionsDTO choiceOptionsDTO){
+        ChoiceOptions choiceOptions = modelMapper.map(choiceOptionsDTO, ChoiceOptions.class);
+        return  choiceOptions;
+    }
     @Override
-    public List<ChoiceOptions> getAllChoiceOptions() {
-        return choiceOptionsRepository.findAll();
+    public List<ChoiceOptionsDTO> getAllChoiceOptions() {
+        List<ChoiceOptions> choiceOptions = choiceOptionsRepository.findAll();
+        return choiceOptions.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @Override
-    public ChoiceOptions getByChoiceOptionsId(Long id) {
-        return choiceOptionsRepository.getOne(id);
+    public ChoiceOptionsDTO getByChoiceOptionsId(Long id) {
+        return convertToDto(choiceOptionsRepository.getOne(id));
     }
 
     @Override
-    public void createChoiceOptions(ChoiceOptions choiceOptions) {
-        choiceOptionsRepository.save(choiceOptions);
+    public void createChoiceOptions(ChoiceOptionsDTO choiceOptionsDTO) {
+        choiceOptionsRepository.save(convertToEntity(choiceOptionsDTO));
     }
 
     @Override
@@ -36,10 +50,9 @@ public class ChoiceOptionsImpl implements ChoiceOptionsService {
     }
 
     @Override
-    public void updateChoiceOptions(ChoiceOptions choiceOptions, Long id) {
-        ChoiceOptions choiceOptions1 = getByChoiceOptionsId(id);
-        choiceOptions.setId(choiceOptions1.getId());
-        createChoiceOptions(choiceOptions);
+    public void updateChoiceOptions(ChoiceOptionsDTO choiceOptionsDTO) {
+        ChoiceOptions choiceOptions = convertToEntity(choiceOptionsDTO);
+        choiceOptionsRepository.save(choiceOptions);
 
     }
 
