@@ -15,7 +15,7 @@ public class ChoiceOptions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "option_text")
     private String optionText;
