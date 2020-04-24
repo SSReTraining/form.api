@@ -1,13 +1,16 @@
 package com.ss.retraining.service.impl;
 
+import com.ss.retraining.dto.SharedFieldsDTO;
 import com.ss.retraining.entity.SharedFields;
 import com.ss.retraining.repository.SharedFieldsRepository;
 import com.ss.retraining.service.SharedFieldsService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -16,19 +19,36 @@ public class SharedFieldsServiceImpl implements SharedFieldsService {
     @Autowired
     SharedFieldsRepository sharedFieldsRepository;
 
-    @Override
-    public SharedFields getSharedFieldsById(Long id) {
-        return sharedFieldsRepository.getOne(id);
+    @Autowired
+    ModelMapper modelMapper;
+
+    private SharedFieldsDTO convertToDto(SharedFields sharedFields) {
+        SharedFieldsDTO sharedFieldsDTO = modelMapper.map(sharedFields, SharedFieldsDTO.class);
+        return sharedFieldsDTO;
+    }
+
+    private SharedFields convertToEntity(SharedFieldsDTO sharedFieldsDTO){
+    SharedFields sharedFields = modelMapper.map(sharedFieldsDTO, SharedFields.class);
+
+        return sharedFields;
     }
 
     @Override
-    public List<SharedFields> getAllSharedFields() {
-        return sharedFieldsRepository.findAll();
+    public SharedFieldsDTO getSharedFieldsById(Long id) {
+        return convertToDto(sharedFieldsRepository.getOne(id));
     }
 
     @Override
-    public void createSharedFields(SharedFields sharedFields) {
-        sharedFieldsRepository.save(sharedFields);
+    public List<SharedFieldsDTO> getAllSharedFields() {
+        List<SharedFields> sharedFields = sharedFieldsRepository.findAll();
+        return sharedFields.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void createSharedFields(SharedFieldsDTO sharedFieldsDto) {
+        sharedFieldsRepository.save(convertToEntity(sharedFieldsDto));
     }
 
     @Override
@@ -37,9 +57,8 @@ public class SharedFieldsServiceImpl implements SharedFieldsService {
     }
 
     @Override
-    public void updateSharedFields(SharedFields sharedFields, Long id) {
-        SharedFields sharedFieldsOld = getSharedFieldsById(id);
-        sharedFields.setId(sharedFieldsOld.getId());
-        createSharedFields(sharedFields);
+    public void updateSharedFields(SharedFieldsDTO sharedFieldsDTO) {
+        SharedFields sharedFields = convertToEntity(sharedFieldsDTO);
+        sharedFieldsRepository.save(sharedFields);
     }
 }
