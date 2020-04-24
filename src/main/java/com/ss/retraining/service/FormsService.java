@@ -1,23 +1,20 @@
 package com.ss.retraining.service;
 
-import com.ss.retraining.entity.Forms;
+import com.ss.retraining.dto.FormsDto;
 
 import java.util.List;
 
-/**
- * Created by annakitchak on 23.04.20.
- */
 
 public interface FormsService {
 
-    void createForms(Forms forms) throws Exception;
+    void createForms(FormsDto formsDto);
 
-    void updateForms(Forms forms, Long id);
+    void updateForms(FormsDto formsDto);
 
     void deleteFormsById(Long id);
 
-    Forms getFormsById(Long id);
+    FormsDto getFormsById(Long id);
 
-    List<Forms> getAllForms();
+    List<FormsDto> getAllForms();
 
 }
