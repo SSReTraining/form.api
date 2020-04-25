@@ -16,4 +16,11 @@ public class FormFieldsDTO {
 
     private Fields fieldsEntity;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

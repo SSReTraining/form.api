@@ -55,6 +55,7 @@ public class FieldsServiceImpl implements FieldsService {
     public void updateFields(FieldsDTO fieldsDTO) {
         Fields fields = convertToEntity(fieldsDTO);
         fieldsRepository.save(fields);
+
     }
 
     }
