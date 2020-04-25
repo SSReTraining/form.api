@@ -1,13 +1,17 @@
 package com.ss.retraining.service;
 
-import com.ss.retraining.entity.Users;
+import com.ss.retraining.dto.UsersDTO;
 
 import java.util.List;
 
 public interface UsersService {
-    Users getUsersById(Long id);
-    List<Users> getAllUsers();
-    void createUsers(Users users);
-    void deleteUserssByID(Long id);
-    void updateUsers(Users users,Long id);
+    UsersDTO getUsersById(Long id);
+
+    List<UsersDTO> getAllUsers();
+
+    void createUsers(UsersDTO usersDTO);
+
+    void deleteUsersByID(Long id);
+
+    void updateUsers(UsersDTO usersDTO);
 }
