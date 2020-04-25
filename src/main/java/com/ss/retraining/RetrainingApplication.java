@@ -12,10 +12,10 @@ public class RetrainingApplication {
     public static void main(String[] args) {
         SpringApplication.run(RetrainingApplication.class, args);
     }
-
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
 }
 

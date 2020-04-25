@@ -1,5 +1,7 @@
 package com.ss.retraining.entity;
 
+
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,19 +20,6 @@ import java.util.List;
 @Entity
 @Table(name="forms")
 public class Forms {
-    @Override
-    public String toString() {
-        return "Forms{" +
-                "id=" + id +
-                ", formName='" + formName + '\'' +
-                ", formTitle='" + formTitle + '\'' +
-                ", resultsUrl='" + resultsUrl + '\'' +
-                ", isPublished=" + isPublished +
-                ", created=" + created +
-                ", user=" + user +
-                ", formFields=" + formFields +
-                '}';
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
