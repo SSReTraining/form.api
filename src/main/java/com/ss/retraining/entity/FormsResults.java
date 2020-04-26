@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -13,14 +12,11 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Entity
 @Table(name = "formresults")
-
 public class FormsResults {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private long id;
-
-
 
     @Column (name="token_id")
     private long tokenId;
