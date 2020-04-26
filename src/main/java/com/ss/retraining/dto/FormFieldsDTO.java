@@ -2,8 +2,13 @@ package com.ss.retraining.dto;
 
 import com.ss.retraining.entity.Fields;
 import com.ss.retraining.entity.Forms;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
 public class FormFieldsDTO {
 
     private Long id;
@@ -16,4 +21,11 @@ public class FormFieldsDTO {
 
     private Fields fieldsEntity;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

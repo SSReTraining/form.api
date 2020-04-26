@@ -1,15 +1,16 @@
 package com.ss.retraining.service;
 
+import com.ss.retraining.dto.ChoiceOptionsDTO;
 import com.ss.retraining.entity.ChoiceOptions;
 import com.ss.retraining.repository.ChoiceOptionsRepository;
 
 import java.util.List;
 
 public interface ChoiceOptionsService {
-    List<ChoiceOptions> getAllChoiceOptions();
-    ChoiceOptions getByChoiceOptionsId(Long id);
-    void createChoiceOptions(ChoiceOptions choiceOptions);
+    List<ChoiceOptionsDTO> getAllChoiceOptions();
+    ChoiceOptionsDTO getByChoiceOptionsId(Long id);
+    void createChoiceOptions(ChoiceOptionsDTO choiceOptionsDTO);
     void deleteChoiceOptionsById(Long id);
-    void updateChoiceOptions(ChoiceOptions choiceOptions, Long id);
+    void updateChoiceOptions(ChoiceOptionsDTO choiceOptionsDTO);
 
 }
