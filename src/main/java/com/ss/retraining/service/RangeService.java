@@ -1,12 +1,12 @@
 package com.ss.retraining.service;
 
-import com.ss.retraining.entity.Range;
+import com.ss.retraining.dto.RangeDTO;
 
 import java.util.List;
 
 public interface RangeService {
-    Range getRangeById(Long id);
-    List<Range> getAllRanges();
-    void createRange(Range range);
+    RangeDTO getRangeById(Long id);
+    List<RangeDTO> getAllRanges();
+    void createRange(RangeDTO RangeDTO);
     void deleteRangeById(Long id);
 }

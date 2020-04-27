@@ -1,13 +1,16 @@
 package com.ss.retraining.service.impl;
 
+import com.ss.retraining.dto.SettingsAutocompleteDTO;
 import com.ss.retraining.entity.SettingsAutocomplete;
 import com.ss.retraining.repository.SettingsAutocompleteRepository;
 import com.ss.retraining.service.SettingsAutocompleteService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -16,19 +19,31 @@ public class SettingsAutocompleteServiceImpl implements SettingsAutocompleteServ
     @Autowired
     SettingsAutocompleteRepository settingsAutocompleteRepository;
 
-    @Override
-    public List<SettingsAutocomplete> getAllSettingsAutocomplete() {
-        return settingsAutocompleteRepository.findAll();
+    @Autowired
+    ModelMapper modelMapper;
+
+    private SettingsAutocompleteDTO convertToDTO(SettingsAutocomplete settingsAutocomplete){
+        return modelMapper.map(settingsAutocomplete, SettingsAutocompleteDTO.class);
+    }
+
+    private SettingsAutocomplete convertToEntity(SettingsAutocompleteDTO settingsAutocompleteDTO){
+        return modelMapper.map(settingsAutocompleteDTO, SettingsAutocomplete.class);
     }
 
     @Override
-    public SettingsAutocomplete getBySettingsAutocompleteId(Long id) {
-        return settingsAutocompleteRepository.getOne(id);
+    public List<SettingsAutocompleteDTO> getAllSettingsAutocomplete() {
+        List<SettingsAutocomplete> settingsAutocompletes = settingsAutocompleteRepository.findAll();
+        return settingsAutocompletes.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public void createSettingsAutocomplete(SettingsAutocomplete settingsAutocomplete) {
-        settingsAutocompleteRepository.save(settingsAutocomplete);
+    public SettingsAutocompleteDTO getBySettingsAutocompleteId(Long id) {
+        return convertToDTO(settingsAutocompleteRepository.getOne(id));
+    }
+
+    @Override
+    public void createSettingsAutocomplete(SettingsAutocompleteDTO settingsAutocompleteDTO) {
+        settingsAutocompleteRepository.save(convertToEntity(settingsAutocompleteDTO));
     }
 
     @Override
@@ -37,9 +52,8 @@ public class SettingsAutocompleteServiceImpl implements SettingsAutocompleteServ
     }
 
     @Override
-    public void updateSettingsAutocomplete(SettingsAutocomplete settingsAutocomplete, Long id) {
-        SettingsAutocomplete oldSettingsAutocomplete = getBySettingsAutocompleteId(id);
-        settingsAutocomplete.setId(oldSettingsAutocomplete.getId());
-        createSettingsAutocomplete(settingsAutocomplete);
+    public void updateSettingsAutocomplete(SettingsAutocompleteDTO settingsAutocompleteDTO) {
+        SettingsAutocomplete settingsAutocomplete = convertToEntity(settingsAutocompleteDTO);
+        settingsAutocompleteRepository.save(settingsAutocomplete);
     }
 }
