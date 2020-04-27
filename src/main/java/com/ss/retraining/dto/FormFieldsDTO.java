@@ -5,10 +5,12 @@ import com.ss.retraining.entity.Forms;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class FormFieldsDTO {
 
     private Long id;
@@ -17,15 +19,8 @@ public class FormFieldsDTO {
 
     private int position;
 
-    private Forms formEntity;
+    private Long formId;
 
-    private Fields fieldsEntity;
+    private Long fieldsId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
