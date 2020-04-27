@@ -52,6 +52,12 @@ public class FormFieldsServiceImpl implements FormFieldsService {
 
 
     @Override
+    public FieldDTO getFieldFromAForm(Long formId, Long formFieldId) {
+        FormFields formFields = formFieldsRepository.getByIdAndFormEntity_Id(formFieldId,formId);
+        return convertToFiieldDTO(formFields.getFieldsEntity());
+    }
+
+    @Override
     public List<FieldDTO> getAllFieldsByFormID(Long id) {
         List<FormFields> formFields = formFieldsRepository.getAllByFormEntity_Id(id);
         List<Fields> fields = new ArrayList<>();

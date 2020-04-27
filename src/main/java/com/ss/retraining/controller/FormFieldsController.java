@@ -43,4 +43,8 @@ public class FormFieldsController {
     public  List<FieldDTO> getAllFieldsByFormID(@PathVariable("form_id") Long id){
         return formFieldsService.getAllFieldsByFormID(id);
     }
+    @GetMapping("/forms/{form_id}/fields/{form_field_id}")
+    public FieldDTO gitFieldFromAFrom(@PathVariable("form_id") Long formId,@PathVariable("form_field_id") Long formFieldId){
+        return formFieldsService.getFieldFromAForm(formId,formFieldId);
+    }
 }

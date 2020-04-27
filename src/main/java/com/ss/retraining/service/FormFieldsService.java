@@ -9,6 +9,7 @@ import com.ss.retraining.entity.FormFields;
 import java.util.List;
 
 public interface FormFieldsService {
+    FieldDTO getFieldFromAForm(Long formId,Long formFieldId);
     List<FieldDTO> getAllFieldsByFormID(Long id);
     List<FormFieldsDTO> getAllFormFields();
     FormFieldsDTO getByFormFieldsId(Long id);
