@@ -51,11 +51,15 @@ public class FormFieldsController {
     @PutMapping("/forms/{form_id}/fields/{form_field_id}")
     public void updateFieldWithinAForm(@PathVariable("form_id") Long formId,
                                        @PathVariable("form_field_id") Long formFieldId,
-                                       @RequestBody FormFieldsDTO formFieldsDTO)
-    {
+                                       @RequestBody FormFieldsDTO formFieldsDTO) {
         formFieldsDTO.setFormId(formId);
         formFieldsDTO.setId(formFieldId);
         formFieldsService.updateFormFields(formFieldsDTO);
 
+    }
+
+    @DeleteMapping("/forms/{form_id}/fields/{form_field_id}")
+    public void deleteByFormFieldId(@PathVariable("form_field_id") Long formFieldId) {
+        formFieldsService.deleteFormFieldsById(formFieldId);
     }
 }

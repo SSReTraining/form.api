@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface FormFieldsRepository extends JpaRepository<FormFields,Long> {
-List<FormFields> getAllByFormEntity_Id(Long id);
-FormFields getByIdAndFormEntity_Id(Long formFieldsId,Long formId);
+public interface FormFieldsRepository extends JpaRepository<FormFields, Long> {
+    List<FormFields> getAllByFormEntity_Id(Long id);
+
+    FormFields getByIdAndFormEntity_Id(Long formFieldsId, Long formId);
 }
