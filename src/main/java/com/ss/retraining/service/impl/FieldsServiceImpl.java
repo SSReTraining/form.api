@@ -20,11 +20,11 @@ public class FieldsServiceImpl implements FieldsService {
     @Autowired
     ModelMapper modelMapper;
 
-    private FieldsDTO convertToDto(Fields fields) {
+    public FieldsDTO convertToDto(Fields fields) {
         FieldsDTO fieldsDTO = modelMapper.map(fields, FieldsDTO.class);
         return fieldsDTO;
     }
-    private Fields convertToEntity(FieldsDTO fieldsDTO){
+    public Fields convertToEntity(FieldsDTO fieldsDTO){
         Fields fields = modelMapper.map(fieldsDTO, Fields.class);
         return fields;
     }

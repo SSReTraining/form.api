@@ -54,7 +54,7 @@ build/
 .vscode/
 
 ### Properties ###
-*.properties
+**/*.properties
 pom.xml
 .DS_Store
 
