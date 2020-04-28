@@ -21,12 +21,12 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     ModelMapper modelMapper;
 
-    private UsersDTO convertToDto(Users users) {
+    public UsersDTO convertToDto(Users users) {
         UsersDTO usersDTO = modelMapper.map(users, UsersDTO.class);
         return usersDTO;
     }
 
-    private Users convertToEntity(UsersDTO usersDTO) {
+    public Users convertToEntity(UsersDTO usersDTO) {
         Users users = modelMapper.map(usersDTO, Users.class);
         return users;
     }
