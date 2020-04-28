@@ -1,6 +1,7 @@
 package com.ss.retraining.service;
 
 import com.ss.retraining.dto.SharedFieldsDTO;
+import com.ss.retraining.dto.UsersDTO;
 import com.ss.retraining.entity.FormFields;
 import com.ss.retraining.entity.SharedFields;
 
@@ -12,5 +13,7 @@ public interface SharedFieldsService {
     void createSharedFields(SharedFieldsDTO sharedFields);
     void deleteSharedFieldsByID(Long id);
     void updateSharedFields(SharedFieldsDTO sharedFields);
+    List<UsersDTO> getUsersWithSharedField(Long fieldId);
+    void deleteByUserIdAndField(Long fieldId,Long userId);
 
 }
