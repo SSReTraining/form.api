@@ -1,6 +1,6 @@
 package com.ss.retraining.service.impl;
 
-import com.ss.retraining.dto.FieldsDTO;
+import com.ss.retraining.dto.FieldDTO;
 import com.ss.retraining.entity.Fields;
 import com.ss.retraining.repository.FieldsRepository;
 import com.ss.retraining.service.FieldsService;
@@ -20,16 +20,16 @@ public class FieldsServiceImpl implements FieldsService {
     @Autowired
     ModelMapper modelMapper;
 
-    public FieldsDTO convertToDto(Fields fields) {
-        FieldsDTO fieldsDTO = modelMapper.map(fields, FieldsDTO.class);
-        return fieldsDTO;
+    public FieldDTO convertToDto(Fields fields) {
+        FieldDTO fieldDTO = modelMapper.map(fields, FieldDTO.class);
+        return fieldDTO;
     }
-    public Fields convertToEntity(FieldsDTO fieldsDTO){
-        Fields fields = modelMapper.map(fieldsDTO, Fields.class);
+    public Fields convertToEntity(FieldDTO fieldDTO){
+        Fields fields = modelMapper.map(fieldDTO, Fields.class);
         return fields;
     }
     @Override
-    public List<FieldsDTO> getAllFields() {
+    public List<FieldDTO> getAllFields() {
         List<Fields> fields = fieldsRepository.findAll();
         return fields.stream()
                 .map(this::convertToDto)
@@ -37,12 +37,12 @@ public class FieldsServiceImpl implements FieldsService {
     }
 
     @Override
-    public FieldsDTO getByFieldsId(Long id) {
+    public FieldDTO getByFieldsId(Long id) {
         return convertToDto(fieldsRepository.getOne(id));
     }
 
     @Override
-    public void createFields(FieldsDTO fieldsDTO) {
+    public void createFields(FieldDTO fieldsDTO) {
         fieldsRepository.save(convertToEntity(fieldsDTO));
     }
 
@@ -52,8 +52,8 @@ public class FieldsServiceImpl implements FieldsService {
     }
 
     @Override
-    public void updateFields(FieldsDTO fieldsDTO) {
-        Fields fields = convertToEntity(fieldsDTO);
+    public void updateFields(FieldDTO fieldDTO) {
+        Fields fields = convertToEntity(fieldDTO);
         fieldsRepository.save(fields);
 
     }

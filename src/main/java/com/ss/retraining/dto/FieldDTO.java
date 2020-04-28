@@ -1,9 +1,11 @@
 package com.ss.retraining.dto;
 
 import lombok.Data;
+import lombok.Setter;
 
 import java.security.Timestamp;
 @Data
+@Setter
 public class FieldDTO {
 
     private Long id;
@@ -17,4 +19,8 @@ public class FieldDTO {
     private Timestamp created;
 
     private Long ownersId;
+
+    public void setField(Long fieldId) {
+        this.id = fieldId;
+    }
 }
