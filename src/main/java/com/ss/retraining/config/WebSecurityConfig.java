@@ -13,8 +13,22 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
+//        http.csrf().
+//                .disable()
+//                .authorizeRequests()
+//                .antMatchers("auth/registration").not().fullyAuthenticated()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("auth/login")
+//                .defaultSuccessUrl("/")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll()
+//                .logoutSuccessUrl("/");
     }
 
     @Bean
