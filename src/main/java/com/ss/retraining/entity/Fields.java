@@ -1,17 +1,12 @@
 package com.ss.retraining.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Entity
+@Data
 @Table(name = "fields")
 public class Fields {
     @Id

@@ -1,12 +1,10 @@
 package com.ss.retraining.dto;
 
 import lombok.Data;
-import lombok.Setter;
 
 import java.security.Timestamp;
 @Data
 public class FieldDTO {
-
     private Long id;
 
     private String name;

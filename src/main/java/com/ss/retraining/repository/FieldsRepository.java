@@ -1,7 +1,6 @@
 package com.ss.retraining.repository;
 
 import com.ss.retraining.entity.Fields;
-import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

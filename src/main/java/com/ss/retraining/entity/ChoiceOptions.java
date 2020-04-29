@@ -1,15 +1,9 @@
 package com.ss.retraining.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.Data;
 import javax.persistence.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Entity
+@Data
 @Table(name = "choiceoptions")
 public class ChoiceOptions {
     @Id
