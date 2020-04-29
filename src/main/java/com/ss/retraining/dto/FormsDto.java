@@ -1,6 +1,7 @@
 package com.ss.retraining.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
@@ -10,10 +11,7 @@ import java.time.LocalDate;
  * Created by annakitchak on 23.04.20.
  */
 
-
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
+@Data
 public class FormsDto {
 
     private Long id;
