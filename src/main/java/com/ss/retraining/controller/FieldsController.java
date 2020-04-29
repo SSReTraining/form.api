@@ -24,19 +24,21 @@ public class FieldsController {
     }
 
     @PostMapping
-    public void createFormFields(@RequestBody FieldDTO fieldDTO) {
+    public void createFields(@RequestBody FieldDTO fieldDTO) {
         fieldsService.createFields(fieldDTO);
     }
 
-    @DeleteMapping("/fields/{field_id}")
-    public void deleteByFormFieldId(@PathVariable("field_id") Long fieldId) {
+    @DeleteMapping("/{field_id}")
+    public void deleteByFieldId(@PathVariable("field_id") Long fieldId) {
         fieldsService.deleteFieldsById(fieldId);
     }
-    @PutMapping("/fields/{field_id}")
-    public void updateFieldWithinAForm(@PathVariable("field_id") Long fieldId,
+
+    @PutMapping("/{field_id}")
+    public void updateFields(@PathVariable("field_id") Long fieldId,
                                        @RequestBody FieldDTO fieldDTO)  {
-        fieldDTO.setField(fieldId);
+        fieldDTO.setId(fieldId);
         fieldsService.updateFields(fieldDTO);
+
     }
 }
 
