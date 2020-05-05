@@ -11,23 +11,23 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "range")
-public class Range {
+@Table(name = "ranges")
+public class Ranges {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
 
-    @Column(name="min")
-    private int min;
+    @Column(name="min_size")
+    private int minSize;
 
-    @Column(name="max")
-    private int max;
+    @Column(name="max_size")
+    private int maxSize;
 
-    @ManyToMany(cascade = CascadeType.DETACH)
+    @ManyToMany
     @JoinTable(name = "field_range",
             joinColumns = @JoinColumn(name = "field_id"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
-    private List<Range> range;
+            inverseJoinColumns = @JoinColumn(name = "range_id"))
+    private List<Fields> fields;
 }

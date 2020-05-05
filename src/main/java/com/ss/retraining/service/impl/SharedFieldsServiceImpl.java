@@ -1,16 +1,24 @@
 package com.ss.retraining.service.impl;
 
+import com.ss.retraining.dto.FieldDTO;
+import com.ss.retraining.dto.FieldsDTO;
 import com.ss.retraining.dto.SharedFieldsDTO;
 import com.ss.retraining.dto.UsersDTO;
 import com.ss.retraining.entity.SharedFields;
 import com.ss.retraining.entity.Users;
 import com.ss.retraining.repository.SharedFieldsRepository;
 import com.ss.retraining.service.SharedFieldsService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +36,9 @@ public class SharedFieldsServiceImpl implements SharedFieldsService {
     @Autowired
     UsersServiceImpl usersService;
 
+    @Autowired
+    FieldsServiceImpl fieldsService;
+
     private SharedFieldsDTO convertToDto(SharedFields sharedFields) {
         SharedFieldsDTO sharedFieldsDTO = modelMapper.map(sharedFields, SharedFieldsDTO.class);
         return sharedFieldsDTO;
@@ -40,16 +51,28 @@ public class SharedFieldsServiceImpl implements SharedFieldsService {
     }
 
     @Override
+    public List<FieldDTO> fieldsThatWereShared() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        List<FieldDTO> fieldsDTOS = new ArrayList<>();
+        List<SharedFields> sharedFields = sharedFieldsRepository.getAllByFieldsEntity_Owners_Id(usersService.getUserByName(currentPrincipalName).getId());
+        sharedFields.forEach(item->fieldsDTOS.add(fieldsService.convertToDto(item.getFieldsEntity())));
+        return fieldsDTOS;
+    }
+
+    @Override
     public SharedFieldsDTO getSharedFieldsById(Long id) {
         return convertToDto(sharedFieldsRepository.getOne(id));
     }
 
+    SessionFactory sessionFactory;
     @Override
     public List<SharedFieldsDTO> getAllSharedFields() {
-        List<SharedFields> sharedFields = sharedFieldsRepository.findAll();
-        return sharedFields.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+
+   List<SharedFields> sharedFields = sharedFieldsRepository.findAll();
+return sharedFields.stream()
+             .map(this::convertToDto)
+            .collect(Collectors.toList());
     }
 
     @Override

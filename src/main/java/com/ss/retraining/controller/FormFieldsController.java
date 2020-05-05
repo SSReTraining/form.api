@@ -2,8 +2,15 @@ package com.ss.retraining.controller;
 
 import com.ss.retraining.dto.FieldDTO;
 import com.ss.retraining.dto.FormFieldsDTO;
+import com.ss.retraining.dto.UsersDTO;
+import com.ss.retraining.entity.Users;
 import com.ss.retraining.service.FormFieldsService;
+import com.ss.retraining.service.UsersService;
+import com.ss.retraining.service.impl.FieldsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,10 +19,15 @@ import java.util.List;
 @RequestMapping("/formfields")
 public class FormFieldsController {
     @Autowired
+    private UsersService usersService;
+
+
+    @Autowired
     private FormFieldsService formFieldsService;
 
     @GetMapping
     public List<FormFieldsDTO> getAllFormFields() {
+
         return formFieldsService.getAllFormFields();
 
     }
@@ -62,4 +74,5 @@ public class FormFieldsController {
     public void deleteByFormFieldId(@PathVariable("form_field_id") Long formFieldId) {
         formFieldsService.deleteFormFieldsById(formFieldId);
     }
+
 }

@@ -45,9 +45,9 @@ public class Fields {
 
     @ManyToMany
     @JoinTable(name = "field_range",
-            joinColumns = @JoinColumn(name = "id"),
+            joinColumns = @JoinColumn(name = "range_id"),
             inverseJoinColumns = @JoinColumn(name = "field_id"))
-    private List<Fields> fields;
+    private List<Ranges> ranges;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")

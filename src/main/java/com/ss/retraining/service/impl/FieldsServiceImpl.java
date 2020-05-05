@@ -4,6 +4,9 @@ import com.ss.retraining.dto.FieldDTO;
 import com.ss.retraining.entity.Fields;
 import com.ss.retraining.repository.FieldsRepository;
 import com.ss.retraining.service.FieldsService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,8 @@ public class FieldsServiceImpl implements FieldsService {
     @Autowired
     ModelMapper modelMapper;
 
+
+
     public FieldDTO convertToDto(Fields fields) {
         FieldDTO fieldDTO = modelMapper.map(fields, FieldDTO.class);
         return fieldDTO;
@@ -28,6 +33,7 @@ public class FieldsServiceImpl implements FieldsService {
         Fields fields = modelMapper.map(fieldDTO, Fields.class);
         return fields;
     }
+    SessionFactory sessionFactory;
     @Override
     public List<FieldDTO> getAllFields() {
         List<Fields> fields = fieldsRepository.findAll();
