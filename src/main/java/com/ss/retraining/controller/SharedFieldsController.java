@@ -1,13 +1,12 @@
 package com.ss.retraining.controller;
 
+import com.ss.retraining.dto.FieldDTO;
+import com.ss.retraining.dto.FieldsDTO;
 import com.ss.retraining.dto.UsersDTO;
 import com.ss.retraining.service.SharedFieldsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,6 +14,11 @@ import java.util.List;
 public class SharedFieldsController {
     @Autowired
     SharedFieldsService  sharedFieldsService;
+
+    @GetMapping("/shared_fields")
+    public List<FieldDTO> allFieldsThatWereSharedByUser(){
+        return sharedFieldsService.fieldsThatWereShared();
+    }
 
     @GetMapping("/shared_fields/{field_id}/user")
     public List<UsersDTO> allUsersWithSharedField(@PathVariable("field_id") Long id){

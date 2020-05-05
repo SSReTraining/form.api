@@ -10,17 +10,19 @@ import com.ss.retraining.repository.FieldsRepository;
 import com.ss.retraining.repository.FormFieldsRepository;
 import com.ss.retraining.repository.FormsRepository;
 import com.ss.retraining.service.FormFieldsService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@Transactional
+@Service("formFieldService")
 public class FormFieldsServiceImpl implements FormFieldsService {
     @Autowired
     FormFieldsRepository formFieldsRepository;
@@ -76,10 +78,12 @@ public class FormFieldsServiceImpl implements FormFieldsService {
                 .collect(Collectors.toList());
     }
 
+    SessionFactory sessionFactory;
     @Override
     public FormFieldsDTO getByFormFieldsId(Long id) {
-
-        return convertToDto(formFieldsRepository.getOne(id));
+        Session session = sessionFactory.getCurrentSession();
+        FormFields formFields = (FormFields)session.get(FormFields.class,id);
+        return convertToDto(formFields);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.ss.retraining.service.impl;
 
 import com.ss.retraining.dto.RangeDTO;
-import com.ss.retraining.entity.Range;
+import com.ss.retraining.entity.Ranges;
 import com.ss.retraining.repository.RangeRepository;
 import com.ss.retraining.service.RangeService;
 import org.modelmapper.ModelMapper;
@@ -22,12 +22,12 @@ public class RangeServiceImpl implements RangeService {
     @Autowired
     ModelMapper modelMapper;
 
-    private RangeDTO convertToDTO(Range range){
-        return modelMapper.map(range, RangeDTO.class);
+    private RangeDTO convertToDTO(Ranges ranges){
+        return modelMapper.map(ranges, RangeDTO.class);
     }
 
-    private Range convertToEntity(RangeDTO rangeDTO){
-        return modelMapper.map(rangeDTO, Range.class);
+    private Ranges convertToEntity(RangeDTO rangeDTO){
+        return modelMapper.map(rangeDTO, Ranges.class);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RangeServiceImpl implements RangeService {
 
     @Override
     public List<RangeDTO> getAllRanges() {
-        List<Range> ranges = rangeRepository.findAll();
+        List<Ranges> ranges = rangeRepository.findAll();
         return ranges.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
