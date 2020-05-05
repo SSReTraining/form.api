@@ -14,4 +14,7 @@ public interface UsersService {
     void deleteUsersByID(Long id);
 
     void updateUsers(UsersDTO usersDTO);
+
+    UsersDTO getUserByName(String name);
+
 }
