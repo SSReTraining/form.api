@@ -4,11 +4,14 @@ import com.ss.retraining.dto.FormsDto;
 import com.ss.retraining.entity.Forms;
 import com.ss.retraining.repository.FormsRepository;
 import com.ss.retraining.service.FormsService;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +24,8 @@ public class FormsServiceImpl implements FormsService {
     private FormsRepository formsRepository;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     private FormsDto convertToDto(Forms forms) {
         FormsDto formsDto = modelMapper.map(forms, FormsDto.class);
@@ -56,7 +61,14 @@ public class FormsServiceImpl implements FormsService {
 
     @Override
     public List<FormsDto> getAllForms() {
-        List<Forms> forms = formsRepository.findAll();
+//        return sessionFactory.getCurrentSession().createQuery("From Forms").list().stream().map(this::convertToDto).collect(Collectors.toList());
+        Query query =  sessionFactory.getCurrentSession().createQuery("From Forms");
+        List<Forms> forms = new LinkedList<>();
+        for(final Object o : query.list()) {
+            forms.add((Forms)o);
+        }
         return forms.stream().map(this::convertToDto).collect(Collectors.toList());
+//        List<Forms> forms = formsRepository.findAll();
+//        return forms.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 }
