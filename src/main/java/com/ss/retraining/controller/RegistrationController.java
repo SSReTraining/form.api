@@ -1,39 +1,46 @@
 package com.ss.retraining.controller;
 
-import com.ss.retraining.dto.UsersDTO;
-import com.ss.retraining.service.UsersService;
+import com.ss.retraining.entity.Users;
+import com.ss.retraining.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @SpringBootApplication
-@RestController
+@Controller
 public class RegistrationController {
 
     @Autowired
-    private UsersService usersService;
+    private UserService userService;
 
-    @PostMapping("auth/registration")
-    public String register(@RequestBody UsersDTO userDTO) {
-        usersService.createUsers(userDTO);
-        return "Hi " + userDTO.getUsername() + " your registration process successfully completed";
+    @GetMapping("/registr")
+    public String registration(Model model) {
+        model.addAttribute("userForm", new Users());
+        return "registr";
     }
 
-    @GetMapping("/getAllUsers")
-    public List<UsersDTO> findAllUsers() {
-        return usersService.getAllUsers();
-    }
+    @PostMapping("/registr")
+    public String addUser(@ModelAttribute("userForm") @Valid Users userForm, BindingResult bindingResult, Model model) {
 
-    @GetMapping("/findUser/{id}")
-    public UsersDTO findUser(@PathVariable Long id) {
-        return usersService.getUsersById(id);
-    }
+        if (bindingResult.hasErrors()) {
+            return "registr";
+        }
+        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())) {
+            model.addAttribute("passwordError", "Passwords don`t match");
+            return "registr";
+        }
+        if (!userService.saveUser(userForm)) {
+            model.addAttribute("usernameError", "User already exists");
+            return "registr";
+        }
 
-    @DeleteMapping("/delete/{id}")
-    public List<UsersDTO> deleteUser(@PathVariable Long id) {
-        usersService.deleteUsersByID(id);
-        return usersService.getAllUsers();
+        return "redirect:/";
     }
 }
