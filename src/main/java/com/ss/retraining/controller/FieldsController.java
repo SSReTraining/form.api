@@ -6,16 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/fields")
-public class FieldsController {
+public class    FieldsController {
     @Autowired
     private FieldsService fieldsService;
 
     @GetMapping
-    public List<FieldDTO> getAllFields() {
-        return fieldsService.getAllFields();
+    public List<FieldDTO> getAllUserFields() {
+
+        return
+                fieldsService.getAllFieldsByUser();
     }
 
     @GetMapping("/{id}")
@@ -40,5 +42,6 @@ public class FieldsController {
         fieldsService.updateFields(fieldDTO);
 
     }
+
 }
 

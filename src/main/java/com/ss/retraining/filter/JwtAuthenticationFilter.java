@@ -13,6 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.crypto.SecretKey;
@@ -36,7 +37,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, SecretKey secretKey) {
         this.authenticationManager = authenticationManager;
         this.secretKey = secretKey;
-        this.setFilterProcessesUrl("/auth/login");
+        this.setFilterProcessesUrl("/auth/login/");
     }
 
     @Override
@@ -48,8 +49,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             credentials.getUsername(),
-                            credentials.getPassword(),
-                            new ArrayList<>())
+                            credentials.getPassword())
             );
         } catch (IOException e) {
             throw new BadCredentialsException("CREDENTIALS_READ_ERROR_MESSAGE");
@@ -59,7 +59,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
                                             Authentication auth) {
-        String username = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
+        String username = ((User) auth.getPrincipal()).getUsername();
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", auth.getAuthorities().stream().map(Object::toString).collect(Collectors.toList()));
         String token = Jwts.builder()

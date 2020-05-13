@@ -6,6 +6,8 @@ import com.ss.retraining.entity.Fields;
 import java.util.List;
 
 public interface FieldsService {
+    List<FieldDTO> getAllFieldsByUser();
+
     List<FieldDTO> getAllFields();
 
     FieldDTO getByFieldsId(Long id);

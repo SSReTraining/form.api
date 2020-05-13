@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/formfields")
 public class FormFieldsController {
@@ -43,7 +43,7 @@ public class FormFieldsController {
 
     }
 
-    @PostMapping("forms/{form_id}/fields")
+    @PostMapping("/forms/{form_id}/fields")
     public void addFieldsToAForm(@PathVariable("form_id") Long id, @RequestBody FormFieldsDTO formFieldsDTO) {
         formFieldsDTO.setFormId(id);
         System.out.println(formFieldsDTO);

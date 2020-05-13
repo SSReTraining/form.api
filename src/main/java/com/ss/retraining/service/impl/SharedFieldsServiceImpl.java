@@ -6,6 +6,7 @@ import com.ss.retraining.dto.SharedFieldsDTO;
 import com.ss.retraining.dto.UsersDTO;
 import com.ss.retraining.entity.SharedFields;
 import com.ss.retraining.entity.Users;
+import com.ss.retraining.exception.SharedFieldsNotFoundException;
 import com.ss.retraining.repository.SharedFieldsRepository;
 import com.ss.retraining.service.SharedFieldsService;
 import org.hibernate.Session;
@@ -46,7 +47,9 @@ public class SharedFieldsServiceImpl implements SharedFieldsService {
 
     private SharedFields convertToEntity(SharedFieldsDTO sharedFieldsDTO){
     SharedFields sharedFields = modelMapper.map(sharedFieldsDTO, SharedFields.class);
-
+//        sharedFields.setFieldsEntity(fieldsService.convertToEntity(fieldsService.getByFieldsId(sharedFieldsDTO.getFieldsEntity())));
+//        sharedFields.setUsers(usersService.convertToEntity(usersService.getUsersById(sharedFieldsDTO.getUsers())));
+//        sharedFields.setOwners(usersService.convertToEntity(usersService.getUsersById(sharedFieldsDTO.getOwners())));
         return sharedFields;
     }
 
@@ -63,9 +66,10 @@ public class SharedFieldsServiceImpl implements SharedFieldsService {
     @Override
     public SharedFieldsDTO getSharedFieldsById(Long id) {
         return convertToDto(sharedFieldsRepository.getOne(id));
+
     }
 
-    SessionFactory sessionFactory;
+
     @Override
     public List<SharedFieldsDTO> getAllSharedFields() {
 
@@ -101,5 +105,21 @@ return sharedFields.stream()
     @Override
     public void deleteByUserIdAndField(Long fieldId,Long userId){
       sharedFieldsRepository.delete(sharedFieldsRepository.getByFieldsEntity_IdAndAndUsers_Id(fieldId,userId));
+    }
+
+    @Override
+    public void shareFieldToListOfUsers(Long fieldId, List<Long> usersDTOS) {
+
+        List<SharedFieldsDTO> sharedFieldsDTOS = new ArrayList<>();
+        for (Long id : usersDTOS){
+            SharedFieldsDTO sharedFieldsDTO = new SharedFieldsDTO();
+            sharedFieldsDTO.setUsers(id);
+            sharedFieldsDTO.setFieldsEntity(fieldId);
+            sharedFieldsDTO.setOwners(fieldsService.getByFieldsId(fieldId).getOwnersId());
+            sharedFieldsDTOS.add(sharedFieldsDTO);
+        }
+        sharedFieldsDTOS.forEach(sharedFieldsDTO -> sharedFieldsRepository.saveByIds
+                (sharedFieldsDTO.getFieldsEntity(),sharedFieldsDTO.getOwners(),sharedFieldsDTO.getUsers()));
+
     }
 }
