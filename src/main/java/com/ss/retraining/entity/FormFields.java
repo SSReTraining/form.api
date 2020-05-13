@@ -6,6 +6,7 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Getter
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "formfields")
-public class FormFields {
+public class FormFields implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -1,9 +1,13 @@
 package com.ss.retraining.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Setter;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
+
+
 @Data
 public class FieldDTO {
 
@@ -15,7 +19,7 @@ public class FieldDTO {
 
     private Boolean isStrict;
 
-    private Timestamp created;
+    private LocalDateTime created;
 
     private Long ownersId;
 }

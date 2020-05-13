@@ -34,7 +34,6 @@ public class FormFieldsServiceImpl implements FormFieldsService {
     FieldsServiceImpl fieldsServiceImpl;
     @Autowired
     ModelMapper modelMapper;
-
     private FormFieldsDTO convertToDto(FormFields formFields) {
         FormFieldsDTO sharedFieldsDTO = modelMapper.map(formFields, FormFieldsDTO.class);
         return sharedFieldsDTO;
@@ -55,7 +54,7 @@ public class FormFieldsServiceImpl implements FormFieldsService {
 
     @Override
     public FieldDTO getFieldFromAForm(Long formId, Long formFieldId) {
-        FormFields formFields = formFieldsRepository.getByIdAndFormEntity_Id(formFieldId,formId);
+       FormFields formFields = formFieldsRepository.getByIdAndFormEntity_Id(formFieldId,formId);
         return convertToFiieldDTO(formFields.getFieldsEntity());
     }
 
@@ -78,12 +77,10 @@ public class FormFieldsServiceImpl implements FormFieldsService {
                 .collect(Collectors.toList());
     }
 
-    SessionFactory sessionFactory;
+
     @Override
     public FormFieldsDTO getByFormFieldsId(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        FormFields formFields = (FormFields)session.get(FormFields.class,id);
-        return convertToDto(formFields);
+        return convertToDto(formFieldsRepository.getOne(id));
     }
 
     @Override

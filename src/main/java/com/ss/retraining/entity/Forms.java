@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -39,11 +40,14 @@ public class Forms {
     private boolean isPublished;
 
     @Column(name="created")
-    private LocalDate created;
+    private LocalDateTime created;
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name="owner_id")
     private Users user;
+
+    @OneToMany(mappedBy = "forms")
+    private List<FormsResults> formsResults;
 
     @OneToMany(mappedBy="formEntity", cascade = CascadeType.REMOVE)
     private List<FormFields> formFields;
