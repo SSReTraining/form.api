@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class Forms {
     private boolean isPublished;
 
     @Column(name="created")
-    private LocalDate created;
+    private LocalDateTime created;
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name="owner_id")

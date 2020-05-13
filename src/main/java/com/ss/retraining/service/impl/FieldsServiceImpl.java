@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,8 +63,9 @@ public class FieldsServiceImpl implements FieldsService {
     }
 
     @Override
-    public void createFields(FieldDTO fieldsDTO) {
-        fieldsRepository.save(convertToEntity(fieldsDTO));
+    public void createFields(FieldDTO fieldsDTO){
+            fieldsDTO.setCreated(LocalDateTime.now());
+            fieldsRepository.save(convertToEntity(fieldsDTO));
     }
 
     @Override

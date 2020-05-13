@@ -6,24 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class FormsResultsDTO {
-    private long id;
-    private long tokenId;
+    private Long id;
     private String answers;
-    private Timestamp created;
-
+    private LocalDateTime created;
     private Users users;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }

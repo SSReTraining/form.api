@@ -77,12 +77,10 @@ public class FormFieldsServiceImpl implements FormFieldsService {
                 .collect(Collectors.toList());
     }
 
-    SessionFactory sessionFactory;
+
     @Override
     public FormFieldsDTO getByFormFieldsId(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        FormFields formFields = (FormFields)session.get(FormFields.class,id);
-        return convertToDto(formFields);
+        return convertToDto(formFieldsRepository.getOne(id));
     }
 
     @Override

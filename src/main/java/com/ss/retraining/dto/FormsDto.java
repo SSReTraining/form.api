@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by annakitchak on 23.04.20.
@@ -24,6 +25,6 @@ public class FormsDto {
 
     private boolean isPublished;
 
-    private LocalDate created;
+    private LocalDateTime created;
 
 }

@@ -4,10 +4,7 @@ import com.ss.retraining.dto.FormsResultsDTO;
 import com.ss.retraining.service.FormsResultsService;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -17,7 +14,7 @@ public class FormResultController  {
     FormsResultsService formsResultsService;
 
 @PostMapping("/forms/{form_id}/answers/")
-public void createFormResult(@PathVariable("form_id") Long id, List<String> strings){
+public void createFormResult(@PathVariable("form_id") Long id, @RequestBody List<String> strings){
     try {
         formsResultsService.createFormsResults(id,strings);
     } catch (JSONException e) {
