@@ -1,6 +1,6 @@
 package com.ss.retraining.exception;
 
-public class UserNameAllredyUsedException extends ServiceException {
+public class UserNameAllredyUsedException extends ConflictException {
     public UserNameAllredyUsedException() {
     }
 

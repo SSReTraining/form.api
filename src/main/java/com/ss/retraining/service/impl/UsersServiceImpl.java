@@ -1,5 +1,6 @@
 package com.ss.retraining.service.impl;
 
+import com.ss.retraining.dto.UserInfoDTO;
 import com.ss.retraining.dto.UsersDTO;
 import com.ss.retraining.entity.Users;
 import com.ss.retraining.repository.UsersRepository;
@@ -9,7 +10,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,6 +37,13 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
 
     public UsersDTO convertToDto(Users users) {
         UsersDTO usersDTO = modelMapper.map(users, UsersDTO.class);
+        return usersDTO;
+    }
+
+    public UserInfoDTO convertToDtoInfo(Users users) {
+        UserInfoDTO usersDTO = modelMapper.map(users, UserInfoDTO.class);
+        usersDTO.setId(users.getId());
+        usersDTO.setUsername(users.getUsername());
         return usersDTO;
     }
 
@@ -82,6 +92,26 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
     @Override
     public UsersDTO getUserByName(String name) {
         return convertToDto(usersRepository.findByUsername(name));
+    }
+
+    @Override
+    public List<UserInfoDTO> getAllOtherUsers() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Users usersDTO = usersRepository.findByUsername(currentPrincipalName);
+        List<Users> usersList = usersRepository.findAll();
+        usersList.remove(usersDTO);
+        return usersList.stream()
+                .map(this::convertToDtoInfo)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserInfoDTO getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Users usersDTO = usersRepository.findByUsername(currentPrincipalName);
+        return convertToDtoInfo(usersDTO);
     }
 
 

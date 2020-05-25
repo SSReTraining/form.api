@@ -1,6 +1,6 @@
 package com.ss.retraining.exception;
 
-public class SharedFieldsNotFoundException extends ServiceException {
+public class SharedFieldsNotFoundException extends DatabaseItemNotFoundException {
     public SharedFieldsNotFoundException() {
     }
 

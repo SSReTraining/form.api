@@ -1,6 +1,6 @@
 package com.ss.retraining.exception;
 
-public class FormResultsNotFoundException extends ServiceException {
+public class FormResultsNotFoundException extends DatabaseItemNotFoundException {
     public FormResultsNotFoundException() {
     }
 

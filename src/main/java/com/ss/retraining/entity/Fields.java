@@ -3,8 +3,10 @@ package com.ss.retraining.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,8 +15,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "fields")
-public class Fields {
+public class Fields implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

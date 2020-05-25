@@ -2,6 +2,7 @@ package com.ss.retraining.service.impl;
 
 import com.ss.retraining.dto.FormsResultsDTO;
 import com.ss.retraining.entity.FormsResults;
+import com.ss.retraining.exception.FormResultsNotFoundException;
 import com.ss.retraining.repository.FormFieldsRepository;
 import com.ss.retraining.repository.FormResultsRepository;
 import com.ss.retraining.repository.FormsRepository;
@@ -36,6 +37,7 @@ public class FormResultsServiceImpl implements FormsResultsService {
 
     private FormsResultsDTO convertToDto(FormsResults formsResults) {
         FormsResultsDTO formsResultsDTO = modelMapper.map(formsResults,FormsResultsDTO.class);
+        formsResultsDTO.setUserId(formsResults.getOwners().getId());
         return formsResultsDTO;
     }
 
@@ -55,7 +57,7 @@ public class FormResultsServiceImpl implements FormsResultsService {
     }
 
     @Override
-    public void createFormsResults(Long formId,List<String> answers) throws JSONException {
+    public void createFormsResults(Long formId,List<String> answers) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         List<String> questions = new ArrayList<>();
@@ -63,8 +65,13 @@ public class FormResultsServiceImpl implements FormsResultsService {
         JSONArray jsonArray = new JSONArray();
         for (int i=0;i<answers.size();i++){
             JSONObject jo = new JSONObject();
-            jo.put("question", questions.get(i));
-            jo.put("answer", answers.get(i));
+            try {
+                jo.put("question", questions.get(i));
+                jo.put("answer", answers.get(i));
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
             jsonArray.put(jo);
         }
         FormsResults formsResults = new FormsResults();
@@ -88,7 +95,12 @@ public class FormResultsServiceImpl implements FormsResultsService {
     @Override
     public List<FormsResultsDTO> getAllAnswersForAFrom(Long id) {
         List<FormsResults> formsResultsDTOS = formResultsRepository.getAllByForms_Id(id);
-        return formsResultsDTOS.stream().map(this::convertToDto).collect(Collectors.toList());
+        if (formsResultsDTOS.isEmpty()){
+                throw new FormResultsNotFoundException("Answers Not Found");
+        }
+        else {
+            return formsResultsDTOS.stream().map(this::convertToDto).collect(Collectors.toList());
+        }
     }
 
 
