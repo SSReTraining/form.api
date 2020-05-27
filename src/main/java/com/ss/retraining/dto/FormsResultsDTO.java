@@ -15,6 +15,6 @@ public class FormsResultsDTO {
     private Long id;
     private String answers;
     private LocalDateTime created;
-    private Users users;
+    private Long userId;
 
 }

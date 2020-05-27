@@ -15,11 +15,8 @@ public class FormResultController  {
 
 @PostMapping("/forms/{form_id}/answers/")
 public void createFormResult(@PathVariable("form_id") Long id, @RequestBody List<String> strings){
-    try {
-        formsResultsService.createFormsResults(id,strings);
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
+    formsResultsService.createFormsResults(id,strings);
+
 }
 @GetMapping("/forms/{form_id}/answers")
     public List<FormsResultsDTO> getAllAnswersForAForm(@PathVariable("form_id") Long id){

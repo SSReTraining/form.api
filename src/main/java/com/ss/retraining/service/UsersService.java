@@ -1,5 +1,6 @@
 package com.ss.retraining.service;
 
+import com.ss.retraining.dto.UserInfoDTO;
 import com.ss.retraining.dto.UsersDTO;
 
 import java.util.List;
@@ -16,5 +17,10 @@ public interface UsersService {
     void updateUsers(UsersDTO usersDTO);
 
     UsersDTO getUserByName(String name);
+
+    List<UserInfoDTO> getAllOtherUsers();
+
+    UserInfoDTO getUserInfo();
+
 
 }

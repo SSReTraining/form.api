@@ -9,7 +9,7 @@ import java.util.List;
 public interface FormsResultsService {
     List<FormsResultsDTO> getAllFormsResults();
     FormsResultsDTO getByFormsResultsId(Long id) ;
-    void createFormsResults(Long formId,List<String> answers) throws JSONException;
+    void createFormsResults(Long formId,List<String> answers);
     void deleteFormsResultsById(Long id);
     void updateFormsResults(FormsResultsDTO formsResultsDTO);
     List<FormsResultsDTO> getAllAnswersForAFrom(Long id);

@@ -1,6 +1,6 @@
 package com.ss.retraining.exception;
 
-public class FieldsNotFoundException extends ServiceException {
+public class FieldsNotFoundException extends DatabaseItemNotFoundException {
     public FieldsNotFoundException() {
     }
 
